@@ -1,0 +1,12 @@
+{
+  "name": "post-message-event-emitter",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": "LinusU/post-message-event-emitter",
+  "scripts": {
+    "test": "standard"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
+  }
+}
