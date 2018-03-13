@@ -1,3 +1,4 @@
+const kHandler = Symbol('handler')
 const kListeners = Symbol('listeners')
 const kOrigin = Symbol('origin')
 const kOther = Symbol('other')
@@ -16,7 +17,7 @@ class PostMessageEventEmitter {
     this[kOrigin] = origin
     this[kOther] = other
 
-    window.addEventListener('message', (ev) => {
+    this[kHandler] = (ev) => {
       // Check origin of message
       if (ev.origin !== this[kOrigin]) return
       if (ev.source !== this[kOther]) return
@@ -32,7 +33,9 @@ class PostMessageEventEmitter {
           Promise.resolve().then(() => fn(ev.data.data))
         }
       }
-    })
+    }
+
+    window.addEventListener('message', this[kHandler])
   }
 
   on (name, fn) {
@@ -50,6 +53,10 @@ class PostMessageEventEmitter {
     if (typeof name !== 'string') throw new TypeError('Expected name to be a string')
 
     this[kOther].postMessage({ name, data }, this[kOrigin])
+  }
+
+  stop () {
+    window.removeEventListener('message', this[kHandler])
   }
 }
 

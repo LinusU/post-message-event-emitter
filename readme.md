@@ -52,3 +52,7 @@ Register a handler for an event with the name `name`. The provided `fn` will be 
 ### `.emit(name, data)`
 
 Emit an event to the other side. Their handler will be invoked with the `data` provided.
+
+### `.stop()`
+
+Stop listening for incoming events.
