@@ -38,3 +38,17 @@ events.on('ping', () => {
   console.log('Received ping')
 })
 ```
+
+## API
+
+### `new PostMessageEventEmitter(other, origin)`
+
+Create a new `PostMessageEventEmitter` instance. The `other` parameter is usually `window.opener` or the return value from `window.open`. The `origin` should be set to the origin with which you want to communicate with.
+
+### `.on(name, fn)`
+
+Register a handler for an event with the name `name`. The provided `fn` will be called every time the other side calls `emit`.
+
+### `.emit(name, data)`
+
+Emit an event to the other side. Their handler will be invoked with the `data` provided.
